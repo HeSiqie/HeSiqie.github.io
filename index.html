@@ -1,3 +1,47 @@
-<p>Hello 大家好</p>
-<p>我是思切，这是我的个人网站。 </p>
-<p>该网站用于收集统计</p>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>欢迎</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <h1>欢迎</h1>
+  <p>输入一个昵称，就可以进入主页。</p>
+
+  <form id="form">
+    <input name="nickname" placeholder="你的昵称" required maxlength="20">
+    <button type="submit">进入主页</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script src="./js/nickname.js"></script>
+  <script>
+    const form = document.getElementById('form')
+    const msg = document.getElementById('msg')
+    const input = form.querySelector('input')
+
+    // 如果之前填过，自动带出来
+    const old = Nick.getNickname()
+    if (old) {
+      input.value = old
+      msg.textContent = '欢迎回来，' + old + '。直接点按钮进入主页。'
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+      const name = input.value.trim()
+
+      if (!name) {
+        msg.textContent = '昵称不能为空'
+        return
+      }
+
+      Nick.setNickname(name)
+      location.href = './home.html'
+    })
+  </script>
+</body>
+</html>
