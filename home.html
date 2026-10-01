@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>主页</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <nav>
+    <a href="./home.html">主页</a>
+    <a href="#" id="change">换个昵称</a>
+  </nav>
+
+  <h1>你好，<span id="name"></span></h1>
+  <p>这里是你的主页，随便写点什么吧。</p>
+
+  <script src="./js/nickname.js"></script>
+  <script>
+    const name = Nick.getNickname()
+
+    // 没填昵称就回首页
+    if (!name) {
+      location.href = './index.html'
+    }
+
+    document.getElementById('name').textContent = name
+
+    document.getElementById('change').addEventListener('click', function (e) {
+      e.preventDefault()
+      Nick.clearNickname()
+      location.href = './index.html'
+    })
+  </script>
+</body>
+</html>
