@@ -7,27 +7,38 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <nav>
-    <a href="./home.html">主页</a>
-    <a href="#" id="change">换个昵称</a>
-  </nav>
+  <div class="card">
+    <div id="badge" class="badge guest">👤 访客</div>
 
-  <h1>你好，<span id="name"></span></h1>
-  <p>这里是你的主页，随便写点什么吧。</p>
+    <p class="greeting">你好，<span class="name" id="name"></span></p>
+    <p class="note" id="note"></p>
+
+    <button class="ghost" id="change">换个昵称</button>
+  </div>
 
   <script src="./js/nickname.js"></script>
   <script>
     const name = Nick.getNickname()
 
-    // 没填昵称就回首页
     if (!name) {
       location.href = './index.html'
     }
 
+    const admin = Nick.isAdmin()
+
+    // 管理员加金色背景
+    if (admin) {
+      document.body.classList.add('admin-mode')
+      document.getElementById('badge').className = 'badge admin'
+      document.getElementById('badge').textContent = '👑 管理员'
+      document.getElementById('note').textContent = '欢迎回来，管理员。这里有你的专属页面。'
+    } else {
+      document.getElementById('note').textContent = '很高兴见到你，随便逛逛吧。'
+    }
+
     document.getElementById('name').textContent = name
 
-    document.getElementById('change').addEventListener('click', function (e) {
-      e.preventDefault()
+    document.getElementById('change').addEventListener('click', function () {
       Nick.clearNickname()
       location.href = './index.html'
     })
