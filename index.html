@@ -7,15 +7,17 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <h1>欢迎</h1>
-  <p>输入一个昵称，就可以进入主页。</p>
+  <div class="card">
+    <h1>欢迎</h1>
+    <p class="subtitle">输入一个昵称，就可以进入主页。</p>
 
-  <form id="form">
-    <input name="nickname" placeholder="你的昵称" required maxlength="20">
-    <button type="submit">进入主页</button>
-  </form>
+    <form id="form">
+      <input name="nickname" placeholder="你的昵称" required maxlength="20" autocomplete="off">
+      <button type="submit">进入主页</button>
+    </form>
 
-  <p id="msg"></p>
+    <p id="msg"></p>
+  </div>
 
   <script src="./js/nickname.js"></script>
   <script>
@@ -23,10 +25,10 @@
     const msg = document.getElementById('msg')
     const input = form.querySelector('input')
 
-    // 如果之前填过，自动带出来
     const old = Nick.getNickname()
     if (old) {
       input.value = old
+      msg.style.color = '#6b7280'
       msg.textContent = '欢迎回来，' + old + '。直接点按钮进入主页。'
     }
 
@@ -35,6 +37,7 @@
       const name = input.value.trim()
 
       if (!name) {
+        msg.style.color = '#dc2626'
         msg.textContent = '昵称不能为空'
         return
       }
